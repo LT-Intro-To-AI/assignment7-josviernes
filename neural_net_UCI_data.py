@@ -61,14 +61,3 @@ nn.train(td, iters=1_000, learning_rate=0.1)
 
 for i in nn.test_with_expected(td):
     print(f"desired: {i[1]}, actual: {i[2]}")
-
-"""f = open("fertility_Diagnosis.txt","r+")
-a = f.readlines()
-print(a[0])
-tokens = a[0].split(",")
-print(tokens)
-if tokens[9].__contains__('N'):
-    tokens[9] = 0
-else:
-    tokens[9] = 1
-print(tokens)"""
