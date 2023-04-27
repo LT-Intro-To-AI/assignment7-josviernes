@@ -1,35 +1,26 @@
 from typing import Tuple
 from neural import *
-#from sklearn.model_selection import train_test_split
 
 
 def parse_line(line: str) -> Tuple[List[float], List[float]]:
     """Splits line of CSV into inputs and output (transormfing output as appropriate)
-
     Args:
         line - one line of the CSV as a string
-
     Returns:
         tuple of input list and output list
     """
     tokens = line.split(",")
-    out = (tokens[9])
-    if tokens[9].__contains__('N'):
-        tokens[9] = [0]
-    else:
-        tokens[9] = [1]
-    output = tokens[9]
-    #print(out,output)
-    inpt = [float(x) for x in tokens[:9]]
+    out = int(tokens[0])
+    output = [1 if out == 1 else 0.5 if out == 2 else 1]
+
+    inpt = [float(x) for x in tokens[1:]]
     return (inpt, output)
 
 
 def normalize(data: List[Tuple[List[float], List[float]]]):
     """Makes the data range for each input feature from 0 to 1
-
     Args:
         data - list of (input, output) tuples
-
     Returns:
         normalized data where input features are mapped to 0-1 range (output already
         mapped in parse_line)
@@ -50,26 +41,13 @@ def normalize(data: List[Tuple[List[float], List[float]]]):
     return data
 
 
-with open("fertility_Diagnosis.txt", "r") as f:
+with open("wine_data.txt", "r") as f:
     training_data = [parse_line(line) for line in f.readlines() if len(line) > 4]
-#print(training_data)
+print(training_data)
 td = normalize(training_data)
+print('\n',td)
+#nn = NeuralNet(13, 3, 1)
+#nn.train(td, iters=100_000, print_interval=1000, learning_rate=0.1)
 
-#print(td)
-
-nn = NeuralNet(9, 80, 1)
-nn.train(td, iters=1_000, learning_rate=0.1)
-
-for i in nn.test_with_expected(td):
-    print(f"desired: {i[1]}, actual: {i[2]}")
-
-"""f = open("fertility_Diagnosis.txt","r+")
-a = f.readlines()
-print(a[0])
-tokens = a[0].split(",")
-print(tokens)
-if tokens[9].__contains__('N'):
-    tokens[9] = 0
-else:
-    tokens[9] = 1
-print(tokens)"""
+#for i in nn.test_with_expected(td):
+    #print(f"desired: {i[1]}, actual: {i[2]}")

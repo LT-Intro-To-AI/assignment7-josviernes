@@ -19,7 +19,7 @@ voter_training_data = [
     ([0.6,0.3,0.4,0.3,0.6],[0.0])
 ]
 
-voter = NeuralNet(5,30,1)
+voter = NeuralNet(5,250,1)
 voter.train(voter_training_data)
 print("\nVoter Training Data\n")
 print(voter.test_with_expected(voter_training_data))
@@ -36,3 +36,5 @@ voter_testing_data = [
 ]
 
 print(f"{voter.test(voter_testing_data)}")
+
+print(voter_training_data)
