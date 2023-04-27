@@ -1,6 +1,5 @@
 from typing import Tuple
 from neural import *
-#from sklearn.model_selection import train_test_split
 
 
 def parse_line(line: str) -> Tuple[List[float], List[float]]:
